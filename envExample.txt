@@ -1,0 +1,6 @@
+PORT='enter ur port'
+MONGO_URI='enter mongodb connection string'
+CLIENT_ID='enter google client id'
+CLIENT_SECRET='enter google secret'
+CALLBACK_URL='call back url for google auth'
+
