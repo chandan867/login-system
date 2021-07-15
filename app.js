@@ -1,7 +1,8 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const passport = require("passport");
-const cookieSession = require("cookie-session");
+const session=require('express-session')
+const MongoStore = require('connect-mongo');
 const ConnectDb = require("./config/db");
 const User=require('./models/UserModel')
 const { isLoggedIn,notLoggedIn,randmString } = require("./middlewares/protect");
@@ -25,12 +26,17 @@ app.use(express.urlencoded({ extended: false }))
 
 
 //setting the use of session
-app.use(
-  cookieSession({
-    name: "tuto-session",
-    keys: ["key1", "key2"],
+app.use(session({
+  secret: 'artisticTouch',
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl:process.env.MONGO_URI,
+    autoRemove: 'native',
+
   })
-);
+
+}))
 app.use(passport.initialize());
 app.use(passport.session());
 
